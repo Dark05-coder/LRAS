@@ -1,5 +1,5 @@
 steps:
-  # Start the VM  instance
+  # Start the VM instance
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: '/bin/bash'
     args:
