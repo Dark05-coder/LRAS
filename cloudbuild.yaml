@@ -1,21 +1,30 @@
 steps:
-  # Startthe VM instance 
+  # Start the VM instance
   - name: gcr.io/cloud-builders/gcloud
     args:
-      - '-c'
-      - 'gcloud compute instances start project-lras --zone=us-west4-b'  # Replace 'project-lras' with your instance name and 'us-west4-b' with your instance zone
+      - 'compute'
+      - 'instances'
+      - 'start'
+      - '${INSTANCE_NAME}'  # Replace ${INSTANCE_NAME} with your instance name
+      - '--zone=${ZONE}'     # Replace ${ZONE} with your instance zone
     entrypoint: bash
 
   # Copy the C++ file to the VM instance
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
-      - '-c'
-      - 'gcloud compute scp /home/jsutar289/lras project-lras:/home/cloudbuild/ --zone=us-west4-b'  # Replace '/home/jsutar289/lras' with the path to your C++ file, 'project-lras' with your instance name, and 'us-west4-b' with your instance zone
+      - 'compute'
+      - 'scp'
+      - '${CPP_FILE_PATH}'  # Replace ${CPP_FILE_PATH} with the path to your C++ file
+      - '${INSTANCE_NAME}:/home/cloudbuild/'  # Replace ${INSTANCE_NAME} with your instance name
+      - '--zone=${ZONE}'  # Replace ${ZONE} with your instance zone
     entrypoint: bash
 
   # SSH into the VM instance and compile & execute the C++ file
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
-      - '-c'
-      - 'gcloud compute ssh project-lras --zone=us-west4-b --command="cd /home/cloudbuild && g++ -o lras lras.cpp && ./lras"'  # Replace 'project-lras' with your instance name, 'us-west4-b' with your instance zone, 'lras.cpp' with the name of your C++ file
+      - 'compute'
+      - 'ssh'
+      - '${INSTANCE_NAME}'  # Replace ${INSTANCE_NAME} with your instance name
+      - '--zone=${ZONE}'  # Replace ${ZONE} with your instance zone
+      - '--command=./${CPP_FILE_NAME}'  # Replace ${CPP_FILE_NAME} with the name of your C++ file
     entrypoint: bash
