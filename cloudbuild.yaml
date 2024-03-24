@@ -1,11 +1,8 @@
 steps:
   # Start the VM instance
-  - name: gcr.io/cloud-builders/gcloud
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: '/bin/bash'
     args:
-      - 'compute'
-      - 'instances'
-      - 'start'
-      - 'project-lras'  # Replace 'project-lras' with your instance name
-      - '--zone=us-west4-b'  # Replace 'us-west4-b' with your instance zone
-    entrypoint: bash
-
+      - '-c'
+      - |
+        gcloud compute instances start project-lras --zone=us-west4-b
