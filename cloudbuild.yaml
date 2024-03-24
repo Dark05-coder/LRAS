@@ -28,3 +28,8 @@ steps:
       - '--zone=${ZONE}'  # Replace ${ZONE} with your instance zone
       - '--command=./${CPP_FILE_NAME}'  # Replace ${CPP_FILE_NAME} with the name of your C++ file
     entrypoint: bash
+    
+options:
+  logging: CLOUD_LOGGING_ONLY
+  build:
+    logs_bucket: REGIONAL_USER_OWNED_BUCKET
