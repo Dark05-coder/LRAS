@@ -7,10 +7,10 @@ steps:
       - |
         gcloud compute instances start project-lras --zone=us-west4-b
 
-  # Compile and execute the C++ file on the VM instance
+  # Execute the C++ file on the VM instance
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: '/bin/bash'
     args:
       - '-c'
       - |
-        gcloud compute ssh cloudbuild@project-lras --zone=us-west4-b --command "g++ -o /home/jsutar289 /home/cloudbuild/lras.cpp && /home/cloudbuild/lras"
+        gcloud compute ssh cloudbuild@project-lras --zone=us-west4-b --command "g++ -o /home/jsutar289/lras /home/jsutar289/lras.cpp && /home/jsutar289/lras"
