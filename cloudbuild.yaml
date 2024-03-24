@@ -1,5 +1,5 @@
 steps:
-  # Startthe VM instance
+  # Start the VM instance
   - name: gcr.io/cloud-builders/gcloud
     args:
       - '-c'
